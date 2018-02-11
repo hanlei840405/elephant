@@ -1,0 +1,142 @@
+<div class="widgets">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+                <em class="ion-ios-close-empty sn-link-close"></em>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">{{createOrEdit}}</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal" role="form" name="userForm" novalidate>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">属地</label>
+                    <div class="col-sm-4">
+                        <ui-select ng-model="location.selected"
+                                   class="btn-group bootstrap-select form-control"
+                                   on-select="selectLocations($item, $model)"
+                                   ng-disabled="false"
+                                   search-enabled="true">
+                            <ui-select-match placeholder="所属属地">
+                                {{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="item in locations | filter: $select.search">
+                                <span ng-bind-html="item.name"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <label class="col-sm-2 control-label">部门</label>
+                    <div class="col-sm-4">
+                        <ui-select ng-model="department.selected"
+                                   class="btn-group bootstrap-select form-control"
+                                   on-select="selectDepartments($item, $model)"
+                                   ng-disabled="false"
+                                   search-enabled="true">
+                            <ui-select-match placeholder="隶属部门">
+                                {{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="item in departments | filter: $select.search">
+                                <span ng-bind-html="item.name"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">岗位</label>
+                    <div class="col-sm-4">
+                        <ui-select ng-model="position.selected"
+                                   class="btn-group bootstrap-select form-control"
+                                   ng-disabled="false"
+                                   search-enabled="true">
+                            <ui-select-match placeholder="岗位">
+                                {{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="item in positions | filter: $select.search">
+                                <span ng-bind-html="item.name"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <label for="name" class="col-sm-2 control-label">姓名</label>
+                    <div class="col-sm-4"
+                         ng-class="{'has-error': userForm.name.$invalid && (userForm.name.$dirty || userForm.$submitted)}">
+                        <input type="text" class="form-control" id="name"
+                               ng-model="user.name" placeholder="姓名" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="mobile" class="col-sm-2 control-label">电话</label>
+                    <div class="col-sm-4"
+                         ng-class="{'has-error': userForm.mobile.$invalid && (userForm.mobile.$dirty || userForm.$submitted)}">
+                        <input type="text" class="form-control" id="mobile"
+                               ng-model="user.mobile" placeholder="电话" required>
+                    </div>
+                    <label for="email" class="col-sm-2 control-label">邮箱</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="email"
+                               ng-model="user.email" placeholder="邮箱">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">性别</label>
+                    <div class="col-sm-4">
+                        <ui-select ng-model="user.gender"
+                                   class="btn-group bootstrap-select form-control"
+                                   ng-disabled="false"
+                                   search-enabled="true">
+                            <ui-select-match placeholder="性别">
+                                {{$select.selected}}
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="item in genders | filter: $select.search">
+                                <span ng-bind-html="item"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <label class="col-sm-2 control-label">出生日期</label>
+                    <div class="col-sm-4">
+                        <p class="input-group datepicker">
+                            <input type="text" class="form-control" uib-datepicker-popup="{{datePicker.birthday.format}}"
+                                   datepicker-options="datePicker.birthday.options" ng-model="user.birthday" is-open="datePicker.birthday.opened" ng-required="true"
+                                   close-text="Close" alt-input-formats="altInputFormats" show-button-bar="false"/>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="selectDate('birthday')"><i
+                                        class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">入职日期</label>
+                    <div class="col-sm-4">
+                        <p class="input-group datepicker">
+                            <input type="text" class="form-control" uib-datepicker-popup="{{datePicker.entryDay.format}}"
+                                   datepicker-options="datePicker.entryDay.options" ng-model="user.entryDay" is-open="datePicker.entryDay.opened" ng-required="true"
+                                   close-text="Close" alt-input-formats="altInputFormats" show-button-bar="false"/>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="selectDate('entryDay')"><i
+                                        class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                        </p>
+                    </div>
+                    <label class="col-sm-2 control-label">转正日期</label>
+                    <div class="col-sm-4">
+                        <p class="input-group datepicker">
+                            <input type="text" class="form-control" uib-datepicker-popup="{{datePicker.regularDay.format}}"
+                                   datepicker-options="datePicker.regularDay.options" ng-model="user.regularDay" is-open="datePicker.regularDay.opened" ng-required="true"
+                                   close-text="Close" alt-input-formats="altInputFormats" show-button-bar="false"/>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="selectDate('regularDay')"><i
+                                        class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" ng-click="submitForm(userForm)">提交</button>
+        </div>
+    </div>
+</div>

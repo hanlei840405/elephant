@@ -1,0 +1,73 @@
+<div class="widgets">
+    <div class="row">
+        <div class="col-md-12">
+            <div ba-panel ba-panel-class="with-scroll department-panel">
+                <table class="table table-hover" st-table="positions" st-pipe="doPage">
+                    <thead>
+                    <tr class="sortable ">
+                        <th class="table-id">#</th>
+                        <th>名称</th>
+                        <th>属地</th>
+                        <th>部门</th>
+                        <th>上级岗</th>
+                        <th>负责人</th>
+                        <th width="20%"></th>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th><input st-search="name" placeholder="名称" class="form-control search-input" type="search"/>
+                        </th>
+                        <th><input st-search="department.location.name" placeholder="属地"
+                                   class="form-control search-input" type="search"/></th>
+                        <th><input st-search="department.name" placeholder="部门" class="form-control search-input"
+                                   type="search"/></th>
+                        <th><input st-search="position.name" placeholder="上级" class="form-control search-input"
+                                   type="search"/></th>
+                        <th></th>
+                        <th>
+                            <button class="btn btn-sm btn-primary" modal-form ng-click="toSave()"><i
+                                    class="glyphicon glyphicon-plus">
+                            </i></button>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody ng-show="!isLoading">
+                    <tr ng-repeat="position in positions">
+                        <td class="table-id">{{position.code}}</td>
+                        <td>{{position.name}}</td>
+                        <td>{{position.department.location.name}}</td>
+                        <td>{{position.department.name}}</td>
+                        <td>{{position.position.name}}</td>
+                        <td>{{showValue(position.manager)}}</td>
+                        <td>
+                            <div class="btn-group">
+                                <button class="btn btn-sm btn-warning" ng-if="position.status=='启用'" ng-click="toSave(position)"><i
+                                        class="glyphicon glyphicon-pencil">修改
+                                </i></button>
+                                <button class="btn btn-sm btn-danger" ng-if="position.status=='启用'" ng-click="preDelete(position)"><i
+                                        class="glyphicon glyphicon-remove">删除
+                                </i></button>
+                                <button class="btn btn-sm btn-danger" ng-if="position.status=='删除'" ng-click="preReuse(position)"><i
+                                        class="glyphicon glyphicon-ok">启用
+                                </i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tbody ng-show="isLoading">
+                    <tr>
+                        <td colspan="7" class="text-center">Loading ...</td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="7" class="text-center">
+                            <div st-pagination="" st-items-by-page="10" st-displayed-pages="8"></div>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

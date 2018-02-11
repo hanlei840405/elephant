@@ -1,0 +1,134 @@
+<div class="widgets">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+                <em class="ion-ios-close-empty sn-link-close"></em>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">{{createOrEdit}}</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal" role="form" name="areaForm" novalidate>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">属地</label>
+                    <div class="col-sm-4">
+                        <ui-select ng-model="location.selected"
+                                   class="btn-group bootstrap-select form-control"
+                                   on-select="selectLocations($item, $model)"
+                                   ng-disabled="false"
+                                   search-enabled="true">
+                            <ui-select-match placeholder="所属属地">
+                                {{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="item in locations | filter: $select.search">
+                                <span ng-bind-html="item.name"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <label class="col-sm-2 control-label">楼号</label>
+                    <div class="col-sm-4">
+                        <ui-select ng-model="building.selected"
+                                   class="btn-group bootstrap-select form-control"
+                                   on-select="selectBuildings($item, $model)"
+                                   ng-disabled="false"
+                                   search-enabled="true">
+                            <ui-select-match placeholder="所属楼号">
+                                {{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="item in buildings | filter: $select.search">
+                                <span ng-bind-html="item.name"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">楼层</label>
+                    <div class="col-sm-4">
+                        <ui-select ng-model="floor.selected"
+                                   class="btn-group bootstrap-select form-control"
+                                   on-select="selectFloors($item, $model)"
+                                   ng-disabled="false"
+                                   search-enabled="true">
+                            <ui-select-match placeholder="所属楼层">
+                                {{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="item in floors | filter: $select.search">
+                                <span ng-bind-html="item.name"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <label for="name" class="col-sm-2 control-label">名称</label>
+                    <div class="col-sm-4"
+                         ng-class="{'has-error': areaForm.name.$invalid && (areaForm.name.$dirty || areaForm.$submitted)}">
+                        <input type="text" class="form-control" id="name"
+                               ng-model="area.name" placeholder="名称" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="acreage" class="col-sm-2 control-label">面积</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="acreage"
+                               ng-model="area.acreage" placeholder="面积">
+                    </div>
+                    <label for="height" class="col-sm-2 control-label">高度</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="height"
+                               ng-model="area.height" placeholder="高度">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">管家</label>
+                    <div class="col-sm-4">
+                        <ui-select ng-model="department.selected"
+                                   class="btn-group bootstrap-select form-control"
+                                   on-select="selectDepartments($item, $model)"
+                                   ng-disabled="false"
+                                   search-enabled="true">
+                            <ui-select-match placeholder="管家部门">
+                                {{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="item in departments | filter: $select.search">
+                                <span ng-bind-html="item.name"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class="col-sm-3">
+                        <ui-select ng-model="position.selected"
+                                   class="btn-group bootstrap-select form-control"
+                                   on-select="selectPositions($item, $model)"
+                                   ng-disabled="false"
+                                   search-enabled="true">
+                            <ui-select-match placeholder="管家岗位">
+                                {{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="item in positions | filter: $select.search">
+                                <span ng-bind-html="item.name"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class="col-sm-3">
+                        <ui-select ng-model="user.selected"
+                                   class="btn-group bootstrap-select form-control"
+                                   ng-disabled="false"
+                                   search-enabled="true">
+                            <ui-select-match placeholder="管家">
+                                {{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="item in users | filter: $select.search">
+                                <span ng-bind-html="item.name"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" ng-click="submitForm(areaForm)">提交</button>
+        </div>
+    </div>
+</div>

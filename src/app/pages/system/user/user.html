@@ -1,0 +1,77 @@
+<div class="widgets">
+    <div class="row">
+        <div class="col-md-12">
+            <div ba-panel ba-panel-class="with-scroll department-panel">
+                <table class="table table-hover" st-table="users" st-pipe="doPage">
+                    <thead>
+                    <tr class="sortable ">
+                        <th class="browser-icons"></th>
+                        <th>编号</th>
+                        <th>姓名</th>
+                        <th>属地</th>
+                        <th>部门</th>
+                        <th>岗位</th>
+                        <th>电话</th>
+                        <th width="24%"></th>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th><input st-search="code" placeholder="编号" class="form-control search-input" type="search"/></th>
+                        <th><input st-search="name" placeholder="名称" class="form-control search-input" type="search"/>
+                        </th>
+                        <th><input st-search="location" placeholder="属地" class="form-control search-input" type="search"/>
+                        </th>
+                        <th><input st-search="department" placeholder="部门" class="form-control search-input" type="search"/>
+                        </th>
+                        <th><input st-search="position" placeholder="岗位" class="form-control search-input" type="search"/>
+                        </th>
+                        <th><input st-search="mobile" placeholder="电话" class="form-control search-input" type="search"/>
+                        </th>
+                        <th>
+                            <button class="btn btn-sm btn-primary" modal-form ng-click="toSave()"><i
+                                    class="glyphicon glyphicon-plus">新建
+                            </i></button>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody ng-show="!isLoading">
+                    <tr ng-repeat="user in users">
+                        <td><img ng-src="{{showHeadImg(user.headImg)}}" width="32" height="32"></td>
+                        <td>{{user.code}}</td>
+                        <td>{{user.name}}</td>
+                        <td>{{user.department.location.name}}</td>
+                        <td>{{user.department.name}}</td>
+                        <td>{{user.position.name}}</td>
+                        <td>{{user.mobile}}</td>
+                        <td>
+                            <div class="btn-group">
+                                <button class="btn btn-sm btn-warning" ng-if="user.status=='启用'" ng-click="toSave(user)"><i
+                                        class="glyphicon glyphicon-pencil">修改
+                                </i></button>
+                                <button class="btn btn-sm btn-danger" ng-if="user.status=='启用'" ng-click="preDelete(user)"><i class="glyphicon glyphicon-remove">删除
+                                </i></button>
+                                <button class="btn btn-sm btn-danger" ng-if="user.status=='删除'" ng-click="preReuse(user)"><i class="glyphicon glyphicon-ok">启用
+                                </i></button>
+                                <button class="btn btn-sm btn-success" ng-if="user.status=='启用'" ng-click="toUpload(user)"><i class="glyphicon glyphicon-upload">上传
+                                </i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tbody ng-show="isLoading">
+                    <tr>
+                        <td colspan="8" class="text-center">Loading ...</td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="8" class="text-center">
+                            <div st-pagination="" st-items-by-page="10" st-displayed-pages="8"></div>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

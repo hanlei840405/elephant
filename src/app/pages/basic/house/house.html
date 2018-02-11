@@ -1,0 +1,77 @@
+<div class="widgets">
+    <div class="row">
+        <div class="col-md-12">
+            <div ba-panel ba-panel-class="with-scroll department-panel">
+                <table class="table table-hover" st-table="houses" st-pipe="doPage">
+                    <thead>
+                    <tr class="sortable ">
+                        <th class="table-id">#</th>
+                        <th>名称</th>
+                        <th>属地</th>
+                        <th>楼号</th>
+                        <th>楼层</th>
+                        <th>管家</th>
+                        <th width="15%"></th>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th><input st-search="name" placeholder="名称" class="form-control search-input" type="search"/>
+                        </th>
+                        <th><input st-search="location" placeholder="属地" class="form-control search-input"
+                                   type="search"/>
+                        </th>
+                        <th><input st-search="building" placeholder="楼号" class="form-control search-input"
+                                   type="search"/>
+                        </th>
+                        <th>
+                        </th>
+                        <th>
+                        </th>
+                        <th>
+                            <button class="btn btn-sm btn-primary" modal-form ng-click="toSave()"><i
+                                    class="glyphicon glyphicon-plus">新建
+                            </i></button>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody ng-show="!isLoading">
+                    <tr ng-repeat="house in houses">
+                        <td class="table-id">{{house.code}}</td>
+                        <td>{{house.name}}</td>
+                        <td>{{house.area.floor.building.locationName}}</td>
+                        <td>{{house.area.floor.building.name}}</td>
+                        <td>{{house.area.floor.name}}</td>
+                        <td>{{house.area.username}}</td>
+                        <td>
+                            <div class="btn-group">
+                                <button class="btn btn-sm btn-warning" ng-if="house.status=='启用'"
+                                        ng-click="toSave(house)"><i
+                                        class="glyphicon glyphicon-pencil">修改
+                                </i></button>
+                                <button class="btn btn-sm btn-danger" ng-if="house.status=='启用'"
+                                        ng-click="preDelete(house)"><i class="glyphicon glyphicon-remove">删除
+                                </i></button>
+                                <button class="btn btn-sm btn-danger" ng-if="house.status=='删除'"
+                                        ng-click="preReuse(house)"><i class="glyphicon glyphicon-ok">启用
+                                </i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tbody ng-show="isLoading">
+                    <tr>
+                        <td colspan="7" class="text-center">Loading ...</td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="7" class="text-center">
+                            <div st-pagination="" st-items-by-page="10" st-displayed-pages="8"></div>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

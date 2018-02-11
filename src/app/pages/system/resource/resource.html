@@ -1,0 +1,113 @@
+<div class="widgets">
+    <div class="row">
+        <div class="col-md-3">
+            <div ba-panel ba-panel-title="资源树" ba-panel-class="with-scroll">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div js-tree="basicConfig" ng-model="treeData" tree="resourceTree"
+                             tree-events="ready:readyCB;select_node:showNode;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div ba-panel ba-panel-class="with-scroll resource-panel">
+                <form class="form-horizontal" role="form" name="resourceForm" ng-submit="submitForm(resourceForm)"
+                      novalidate>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">隶属资源</label>
+                        <div class="col-sm-9">
+                            <ui-select ng-model="parent.selected"
+                                       class="btn-group bootstrap-select form-control"
+                                       ng-disabled="false"
+                                       append-to-body="true"
+                                       search-enabled="true">
+                                <ui-select-match placeholder="隶属资源">
+                                    {{$select.selected.name}}
+                                </ui-select-match>
+                                <ui-select-choices
+                                        repeat="item in parents | filter: $select.search">
+                                    <span ng-bind-html="item.name"></span>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="col-sm-3 control-label">名称</label>
+                        <div class="col-sm-9"
+                             ng-class="{'has-error': resourceForm.name.$invalid && (resourceForm.name.$dirty || resourceForm.$submitted)}">
+                            <input type="text" class="form-control" id="name" name="name"
+                                   ng-model="resource.name" placeholder="名称" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10 btn-group">
+                            <button type="submit" ng-if="action.saveAction" class="btn btn-primary">新增</button>
+                            <button type="submit" ng-if="action.modifyAction" class="btn btn-warning">修改</button>
+                            <button type="button" ng-if="action.deleteAction" class="btn btn-danger"
+                                    ng-click="preDelete()">删除
+                            </button>
+                            <button type="button" ng-if="action.reuseAction" class="btn btn-default"
+                                    ng-click="preReuse()">启用
+                            </button>
+                            <button type="button" class="btn btn-success" ng-click="reset()">重置</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div ba-panel ba-panel-title="授权" ba-panel-class="with-scroll resource-panel">
+                <table class="table table-hover" st-table="positions" st-pipe="doPositionPage">
+                    <thead>
+                    <tr class="sortable ">
+                        <th>
+                            <button type="button" class="btn btn-primary" ng-click="grant()">授权</button>
+                            <div st-pagination="" st-items-by-page="10" st-displayed-pages="8"></div>
+                        </th>
+                        <th>名称</th>
+                        <th>属地</th>
+                        <th>部门</th>
+                        <th>上级岗</th>
+                    </tr>
+                    <tr>
+                        <th class="text-center">
+                            <label class="checkbox-inline custom-checkbox nowrap">
+                                <input type="checkbox" id="selectAll" ng-model="active" ng-checked="all" ng-change="checkAll(active)">
+                                <span></span>
+                            </label>
+                        </th>
+                        <th><input st-search="name" placeholder="名称" class="form-control search-input" type="search"/>
+                        </th>
+                        <th><input st-search="department.location.name" placeholder="属地"
+                                   class="form-control search-input" type="search"/></th>
+                        <th><input st-search="department.name" placeholder="部门" class="form-control search-input"
+                                   type="search"/></th>
+                        <th><input st-search="position.name" placeholder="上级" class="form-control search-input"
+                                   type="search"/></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="position in positions">
+                        <td class="text-center">
+                            <label class="checkbox-inline custom-checkbox nowrap">
+                                <input type="checkbox" ng-checked="active" ng-model="position.checked" ng-click="check(position.checked, position.code)"/>
+                                <span></span>
+                            </label>
+                        </td>
+                        <td>{{position.name}}</td>
+                        <td>{{position.department.location.name}}</td>
+                        <td>{{position.department.name}}</td>
+                        <td>{{position.position.name}}</td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="5" class="text-center">
+                            <div st-pagination="" st-items-by-page="10" st-displayed-pages="8"></div>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
