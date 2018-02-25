@@ -1,0 +1,90 @@
+<div class="widgets">
+    <div class="row">
+        <div class="col-md-12">
+            <div ba-panel ba-panel-class="with-scroll department-panel">
+                <table class="table table-hover" st-table="houses" st-pipe="doPage">
+                    <thead>
+                    <tr class="sortable ">
+                        <th class="table-id">#</th>
+                        <th>名称</th>
+                        <th>业主证件号</th>
+                        <th>业主姓名</th>
+                        <th>业主电话</th>
+                        <th width="25%">房屋信息</th>
+                        <th>合同生效时间</th>
+                        <th>合同终止时间</th>
+                        <th width="16%"></th>
+                    </tr>
+                    <tr>
+                        <th><input st-search="code" placeholder="编号" class="form-control search-input" type="search"/>
+                        </th>
+                        <th><input st-search="name" placeholder="名称" class="form-control search-input" type="search"/>
+                        </th>
+                        <th><input st-search="ownerId" placeholder="业主证件号" class="form-control search-input"
+                                   type="search"/>
+                        </th>
+                        <th><input st-search="ownerName" placeholder="业主姓名" class="form-control search-input"
+                                   type="search"/>
+                        </th>
+                        <th><input st-search="ownerPhone" placeholder="业主电话" class="form-control search-input"
+                                   type="search"/>
+                        </th>
+                        <th><input st-search="house" placeholder="房屋信息" class="form-control search-input"
+                                   type="search"/>
+                        </th>
+                        <th><input st-search="begin" placeholder="合同生效时间" class="form-control search-input"
+                                   type="search"/>
+                        </th>
+                        <th><input st-search="end" placeholder="合同终止时间" class="form-control search-input"
+                                   type="search"/>
+                        </th>
+                        <th>
+                            <button class="btn btn-sm btn-primary" modal-form ng-click="toSave()"><i
+                                    class="glyphicon glyphicon-plus">新建
+                            </i></button>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody ng-show="!isLoading">
+                    <tr ng-repeat="leaseHouseContract in leaseHouseContracts">
+                        <td class="table-id">{{leaseHouseContract.code}}</td>
+                        <td>{{leaseHouseContract.name}}</td>
+                        <td>{{leaseHouseContract.ownerId}}</td>
+                        <td>{{leaseHouseContract.ownerName}}</td>
+                        <td>{{leaseHouseContract.ownerPhone}}</td>
+                        <td>{{leaseHouseContract.houseName}}</td>
+                        <td>{{leaseHouseContract.serviceFrom | date:'yyyy-MM-dd'}}</td>
+                        <td>{{leaseHouseContract.serviceTo | date:'yyyy-MM-dd'}}</td>
+                        <td>
+                            <div class="btn-group">
+                                <button class="btn btn-sm btn-warning" ng-if="leaseHouseContract.status=='新建'"
+                                        ng-click="toSave(leaseHouseContract)"><i
+                                        class="glyphicon glyphicon-pencil">修改
+                                </i></button>
+                                <button class="btn btn-sm btn-danger" ng-if="leaseHouseContract.status=='新建'"
+                                        ng-click="preReuse(leaseHouseContract)"><i class="glyphicon glyphicon-ok">提交审核
+                                </i></button>
+                                <button class="btn btn-sm btn-danger" ng-if="leaseHouseContract.status=='新建' || leaseHouseContract.status=='审核'"
+                                        ng-click="preDelete(leaseHouseContract)"><i class="glyphicon glyphicon-remove">删除
+                                </i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tbody ng-show="isLoading">
+                    <tr>
+                        <td colspan="9" class="text-center">Loading ...</td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="9" class="text-center">
+                            <div st-pagination="" st-items-by-page="10" st-displayed-pages="8"></div>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

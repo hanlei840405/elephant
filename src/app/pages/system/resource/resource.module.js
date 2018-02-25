@@ -17,7 +17,7 @@
           url: '/resource',
           templateUrl: 'app/pages/system/resource/resource.html',
           title: '资源管理',
-          controller: 'resourceCtrl',
+          controller: 'ResourceCtrl',
           sidebarMeta: {
             order: 500,
           },

@@ -11,6 +11,8 @@
       'BlurAdmin.pages.basic.area',
       'BlurAdmin.pages.basic.house',
       'BlurAdmin.pages.basic.owner',
+      'BlurAdmin.pages.basic.ownerProperty',
+      'BlurAdmin.pages.basic.dictionary',
     ])
     .config(routeConfig);
 

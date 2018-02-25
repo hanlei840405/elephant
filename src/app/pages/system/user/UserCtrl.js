@@ -6,7 +6,7 @@
     'use strict';
 
     angular.module('BlurAdmin.pages.system.user')
-        .controller('userCtrl', UserCtrl);
+        .controller('UserCtrl', UserCtrl);
 
     /** @ngInject */
     function UserCtrl($scope, $uibModal, $timeout, $filter, locationService, departmentService, positionService, userService, fileReader) {
@@ -227,7 +227,6 @@
                     }
                 }
             };
-            $scope.opened = false;
             $scope.format = 'yyyy-MM-dd';
             $scope.options = {
                 showWeeks: false

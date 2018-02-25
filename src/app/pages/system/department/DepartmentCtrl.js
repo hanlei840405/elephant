@@ -6,7 +6,7 @@
     'use strict';
 
     angular.module('BlurAdmin.pages.system.department')
-        .controller('departmentCtrl', DepartmentCtrl);
+        .controller('DepartmentCtrl', DepartmentCtrl);
 
     /** @ngInject */
     function DepartmentCtrl($scope, $uibModal, $timeout, departmentService, locationService) {

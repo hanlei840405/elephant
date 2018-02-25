@@ -1,12 +1,12 @@
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.service.basic.owner', []).service('ownerService', ['$http', '$q', 'basicHost', function ($http, $q, basicHost) {
+    angular.module('BlurAdmin.service.lease.leaseHouseContract', []).service('leaseHouseContractService', ['$http', '$q', 'operationHost', function ($http, $q, operationHost) {
         this.page = function (search, pageNo, pageSize) {
             var d = $q.defer();
             $http({
                 method: 'GET',
-                url: basicHost + 'owner/page',
+                url: operationHost + 'leaseHouseContract/page',
                 params: {
                     'search': search,
                     'pageNo': pageNo,
@@ -19,14 +19,14 @@
             });
             return d.promise;
         };
-        this.findAll = function (locationCode, status) {
+        // 查找未签合同的房源
+        this.findAvailableHouse = function (floorCode) {
             var d = $q.defer();
             $http({
                 method: 'GET',
-                url: basicHost + 'owner/findAll',
+                url: operationHost + 'leaseHouseContract/availableHouses',
                 params: {
-                    'locationCode': locationCode,
-                    'status': status
+                    'floorCode': floorCode
                 }
             }).success(function (response) {
                 d.resolve(response);
@@ -35,15 +35,15 @@
             });
             return d.promise;
         };
-        this.save = function (owner) {
+        this.save = function (leaseHouseContract) {
             var d = $q.defer();
             $http({
                 method: 'POST',
-                url: basicHost + 'owner/save',
+                url: operationHost + 'leaseHouseContract/save',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                data: owner
+                data: leaseHouseContract
             }).success(function (response) {
                 d.resolve(response);
             }).error(function (response) {
@@ -51,15 +51,15 @@
             });
             return d.promise;
         };
-        this.delete = function (owner) {
+        this.delete = function (leaseHouseContract) {
             var d = $q.defer();
             $http({
                 method: 'POST',
-                url: basicHost + 'owner/delete',
+                url: operationHost + 'leaseHouseContract/delete',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                data: owner
+                data: leaseHouseContract
             }).success(function (response) {
                 d.resolve(response);
             }).error(function (response) {
@@ -67,24 +67,21 @@
             });
             return d.promise;
         };
-        this.reuse = function (owner) {
+        this.reuse = function (leaseHouseContract) {
             var d = $q.defer();
             $http({
                 method: 'POST',
-                url: basicHost + 'owner/reuse',
+                url: operationHost + 'leaseHouseContract/reuse',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                data: owner
+                data: leaseHouseContract
             }).success(function (response) {
                 d.resolve(response);
             }).error(function (response) {
                 d.reject(response.message);
             });
             return d.promise;
-        };
-        this.showHeadImg = function (imageName) {
-            return basicHost + 'ext/images/basic/owner/' + imageName;
         };
     }])
 

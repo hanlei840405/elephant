@@ -6,7 +6,7 @@
     'use strict';
 
     angular.module('BlurAdmin.pages.system.position')
-        .controller('positionCtrl', PositionCtrl);
+        .controller('PositionCtrl', PositionCtrl);
 
     /** @ngInject */
     function PositionCtrl($scope, $uibModal, $timeout, locationService, departmentService, positionService) {

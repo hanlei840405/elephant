@@ -1,0 +1,77 @@
+<div class="widgets">
+    <div class="row">
+        <div class="col-md-12">
+            <div ba-panel ba-panel-class="with-scroll department-panel">
+                <table class="table table-hover" st-table="areas" st-pipe="doPage">
+                    <thead>
+                    <tr class="sortable ">
+                        <th class="table-id">#</th>
+                        <th>编码</th>
+                        <th>名称</th>
+                        <th>
+                            <button class="btn btn-primary" modal-form ng-click="toSave()"><i
+                                    class="glyphicon glyphicon-plus">新建
+                            </i></button>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody ng-show="!isLoading">
+                    <tr ng-repeat="dictionary in dictionaries" class="editable-row">
+                        <td>
+                            {{$index + 1}}
+                        </td>
+                        <td>
+                            <span editable-text="dictionary.key" e-name="key" e-form="dictionaryForm" e-required>
+                              {{ dictionary.key}}
+                            </span>
+                        </td>
+                        <td>
+                            <span editable-text="dictionary.name" e-name="name" e-form="dictionaryForm" e-required>
+                              {{ dictionary.name}}
+                            </span>
+                        </td>
+                        <td>
+                            <form editable-form name="dictionaryForm" ng-show="dictionaryForm.$visible"
+                                  class="form-buttons form-inline"
+                                  shown="showForm" ng-submit="submitForm(dictionaryForm)">
+                                <div class="btn-group">
+                                    <button type="submit" ng-disabled="dictionaryForm.$waiting"
+                                            class="btn btn-primary editable-table-button btn-sm">
+                                        保存
+                                    </button>
+                                    <button type="button" ng-disabled="dictionaryForm.$waiting"
+                                            ng-click="dictionaryForm.$cancel()"
+                                            class="btn btn-default editable-table-button btn-sm">
+                                        取消
+                                    </button>
+                                </div>
+                            </form>
+                            <div class="btn-group" ng-show="!dictionaryForm.$visible">
+                                <button class="btn btn-primary editable-table-button btn-sm"
+                                        ng-if="dictionary.status=='启用'" ng-click="dictionaryForm.$show()">修改
+                                </button>
+                                <button class="btn btn-danger editable-table-button btn-sm"
+                                        ng-if="dictionary.status=='启用'" ng-click="preDelete(dictionary)">删除
+                                </button>
+                                <button class="btn btn-warning editable-table-button btn-sm"
+                                        ng-if="dictionary.status=='删除'" ng-click="preDelete(dictionary)">启用
+                                </button>
+                                <button class="btn btn-info editable-table-button btn-sm"
+                                        ng-if="dictionary.status=='启用'" ng-click="addItems(dictionary)">添加明细
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="4" class="text-center">
+                            <div st-pagination="" st-items-by-page="10" st-displayed-pages="8"></div>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

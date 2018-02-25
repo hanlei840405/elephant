@@ -6,7 +6,7 @@
   'use strict';
 
   angular.module('BlurAdmin.pages.system.location')
-  .controller('locationCtrl', LocationCtrl);
+  .controller('LocationCtrl', LocationCtrl);
 
   /** @ngInject */
   function LocationCtrl($scope, $uibModal, $timeout, locationService) {

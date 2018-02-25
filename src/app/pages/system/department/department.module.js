@@ -14,7 +14,7 @@
         .state('system.department', {
           url: '/department',
           templateUrl: 'app/pages/system/department/department.html',
-          controller: 'departmentCtrl',
+          controller: 'DepartmentCtrl',
           title: '部门管理',
           sidebarMeta: {
             order: 100,

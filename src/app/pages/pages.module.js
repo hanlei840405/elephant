@@ -18,6 +18,7 @@
     'BlurAdmin.pages.profile',
     'BlurAdmin.pages.system',
     'BlurAdmin.pages.basic',
+    'BlurAdmin.pages.lease',
   ])
       .config(routeConfig);
 

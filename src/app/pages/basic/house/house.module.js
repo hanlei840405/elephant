@@ -5,7 +5,13 @@
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.pages.basic.house', ['BlurAdmin.service.basic.house', 'BlurAdmin.service.basic.area', 'BlurAdmin.service.basic.floor', 'BlurAdmin.service.basic.building', 'BlurAdmin.service.system.location'])
+    angular.module('BlurAdmin.pages.basic.house', [
+        'BlurAdmin.service.basic.house',
+        'BlurAdmin.service.basic.area',
+        'BlurAdmin.service.basic.floor',
+        'BlurAdmin.service.basic.building',
+        'BlurAdmin.service.system.location'
+    ])
         .config(routeConfig);
 
     /** @ngInject */

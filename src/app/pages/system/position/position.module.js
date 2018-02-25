@@ -18,7 +18,7 @@
           url: '/position',
           templateUrl: 'app/pages/system/position/position.html',
           title: '岗位管理',
-          controller: 'positionCtrl',
+          controller: 'PositionCtrl',
           sidebarMeta: {
             order: 200,
           },

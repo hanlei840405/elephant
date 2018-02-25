@@ -1,0 +1,217 @@
+<div class="widgets">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+                <em class="ion-ios-close-empty sn-link-close"></em>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">{{createOrEdit}}</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal" role="form" name="leaseHouseContractForm" novalidate>
+                <div class="form-group">
+                    <label for="ownerId" class="col-sm-2 control-label">业主证件号</label>
+                    <div class="col-sm-4"
+                         ng-class="{'has-error': leaseHouseContractForm.name.$invalid && (leaseHouseContractForm.name.$dirty || leaseHouseContractForm.$submitted)}">
+                        <input type="text" class="form-control" id="ownerId"
+                               ng-model="leaseHouseContract.ownerId" placeholder="业主证件号" required>
+                    </div>
+                    <label for="ownerName" class="col-sm-2 control-label">业主名称</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="ownerName"
+                               ng-model="leaseHouseContract.ownerName" placeholder="业主名称">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="ownerPhone" class="col-sm-2 control-label">业主电话</label>
+                    <div class="col-sm-4"
+                         ng-class="{'has-error': leaseHouseContractForm.name.$invalid && (leaseHouseContractForm.name.$dirty || leaseHouseContractForm.$submitted)}">
+                        <input type="text" class="form-control" id="ownerPhone"
+                               ng-model="leaseHouseContract.ownerPhone" placeholder="业主电话" required>
+                    </div>
+                    <label for="name" class="col-sm-2 control-label">合同名称</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="name"
+                               ng-model="leaseHouseContract.name" placeholder="合同名称">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">属地</label>
+                    <div class="col-sm-4">
+                        <ui-select ng-model="location.selected"
+                                   class="btn-group bootstrap-select form-control"
+                                   on-select="selectBuildings()"
+                                   ng-disabled="false"
+                                   search-enabled="true">
+                            <ui-select-match placeholder="属地">
+                                {{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="item in locations | filter: $select.search">
+                                <span ng-bind-html="item.name"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <label class="col-sm-2 control-label">楼号</label>
+                    <div class="col-sm-4">
+                        <ui-select ng-model="building.selected"
+                                   class="btn-group bootstrap-select form-control"
+                                   on-select="selectFloors($item, $model)"
+                                   ng-disabled="false"
+                                   search-enabled="true">
+                            <ui-select-match placeholder="楼号">
+                                {{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="item in buildings | filter: $select.search">
+                                <span ng-bind-html="item.name"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">楼层</label>
+                    <div class="col-sm-4">
+                        <ui-select ng-model="floor.selected"
+                                   class="btn-group bootstrap-select form-control"
+                                   on-select="selectHouses($item, $model)"
+                                   ng-disabled="false"
+                                   search-enabled="true">
+                            <ui-select-match placeholder="楼层">
+                                {{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="item in floors | filter: $select.search">
+                                <span ng-bind-html="item.name"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <label class="col-sm-2 control-label">房源</label>
+                    <div class="col-sm-4">
+                        <ui-select ng-model="house.selected"
+                                   class="btn-group bootstrap-select form-control"
+                                   on-select="showHouseInfo($item, $model)"
+                                   ng-disabled="false"
+                                   search-enabled="true">
+                            <ui-select-match placeholder="房屋">
+                                {{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="item in houses | filter: $select.search">
+                                <span ng-bind-html="item.name"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="houseAcreage" class="col-sm-2 control-label">面积</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="houseAcreage"
+                               ng-model="leaseHouseContract.houseAcreage" placeholder="面积" required>
+                    </div>
+                    <label for="housePublicArea" class="col-sm-2 control-label">公摊面积</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="housePublicArea"
+                               ng-model="leaseHouseContract.housePublicArea" placeholder="公摊面积">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="rent" class="col-sm-2 control-label">租金（元/㎡·天）</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="rent"
+                               ng-model="leaseHouseContract.houseRent" placeholder="租金（元/㎡·天）" required>
+                    </div>
+                    <label for="serviceFrom" class="col-sm-2 control-label">生效时间</label>
+                    <div class="col-sm-4">
+                        <p class="input-group datepicker">
+                            <input type="text" id="serviceFrom" class="form-control" uib-datepicker-popup="{{datePicker.serviceFrom.format}}"
+                                   datepicker-options="datePicker.serviceFrom.options" ng-model="leaseHouseContract.serviceFrom" is-open="datePicker.serviceFrom.opened" ng-required="true"
+                                   close-text="Close" alt-input-formats="altInputFormats" show-button-bar="false"/>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="selectDate('serviceFrom')"><i
+                                        class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="serviceTo" class="col-sm-2 control-label">终止时间</label>
+                    <div class="col-sm-4">
+                        <p class="input-group datepicker">
+                            <input type="text" id="serviceTo" class="form-control" uib-datepicker-popup="{{datePicker.serviceTo.format}}"
+                                   datepicker-options="datePicker.serviceTo.options" ng-model="leaseHouseContract.serviceTo" is-open="datePicker.serviceTo.opened" ng-required="true"
+                                   close-text="Close" alt-input-formats="altInputFormats" show-button-bar="false"/>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="selectDate('serviceTo')"><i
+                                        class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                        </p>
+                    </div>
+                    <label for="amount" class="col-sm-2 control-label">合同金额（元）</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control" id="amount" ng-readonly="true"
+                               ng-model="leaseHouseContract.amount" placeholder="合同金额（元）">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="deposit" class="col-sm-2 control-label">押金（元）</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control" id="deposit" min="0"
+                               ng-model="leaseHouseContract.deposit" placeholder="优惠金额（元）" required>
+                    </div>
+                    <label for="discount" class="col-sm-2 control-label">优惠金额（元）</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control" id="discount" min="0"
+                               ng-model="leaseHouseContract.discount" placeholder="优惠金额（元）" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="payment" class="col-sm-2 control-label">实际支付（元）</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control" id="payment" min="0" ng-readonly="true"
+                               ng-model="leaseHouseContract.payment" placeholder="实际支付（元）">
+                    </div>
+                    <label for="payMode" class="col-sm-2 control-label">支付方式</label>
+                    <div class="col-sm-4">
+                        <ui-select ng-model="leaseHouseContract.payMode" id="payMode"
+                                   class="btn-group bootstrap-select form-control"
+                                   ng-disabled="false"
+                                   search-enabled="true">
+                            <ui-select-match placeholder="支付方式">
+                                {{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="item in payModes | filter: $select.search">
+                                <span ng-bind-html="item.name"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="settlementPeriod" class="col-sm-2 control-label">缴费周期</label>
+                    <div class="col-sm-4">
+                        <ui-select ng-model="leaseHouseContract.settlementPeriod" id="settlementPeriod"
+                                   class="btn-group bootstrap-select form-control"
+                                   ng-disabled="false"
+                                   search-enabled="true">
+                            <ui-select-match placeholder="缴费周期">
+                                {{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="item in settlementPeriods | filter: $select.search">
+                                <span ng-bind-html="item.name"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <label for="periodAmount" class="col-sm-2 control-label">每周期实际支付（元）</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control" id="periodAmount" min="0" ng-readonly="true"
+                               ng-model="leaseHouseContract.periodAmount" placeholder="每周期实际支付（元）">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" ng-click="submitForm(leaseHouseContractForm)">提交</button>
+        </div>
+    </div>
+</div>

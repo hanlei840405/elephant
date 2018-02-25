@@ -5,11 +5,11 @@
 (function () {
     'use strict';
 
-    angular.module('BlurAdmin.pages.basic.owner')
-        .controller('OwnerCtrl', OwnerCtrl);
+    angular.module('BlurAdmin.pages.basic.ownerProperty')
+        .controller('OwnerPropertyCtrl', OwnerPropertyCtrl);
 
     /** @ngInject */
-    function OwnerCtrl($scope, $uibModal, $timeout, ownerService, houseService) {
+    function OwnerPropertyCtrl($scope, $uibModal, $timeout, ownerService, locationService, buildingService, areaService, floorService, houseService) {
         var ownerTable;
         $scope.owners = [];
         $scope.houses = [];

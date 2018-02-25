@@ -6,7 +6,7 @@
     'use strict';
 
     angular.module('BlurAdmin.pages.system.resource')
-        .controller('resourceCtrl', ResourceCtrl);
+        .controller('ResourceCtrl', ResourceCtrl);
 
     /** @ngInject */
     function ResourceCtrl($scope, $uibModal, $timeout, resourceService, positionService) {

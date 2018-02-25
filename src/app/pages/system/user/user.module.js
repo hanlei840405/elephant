@@ -19,7 +19,7 @@
           url: '/user',
           templateUrl: 'app/pages/system/user/user.html',
           title: '员工管理',
-          controller: 'userCtrl',
+          controller: 'UserCtrl',
           sidebarMeta: {
             order: 400,
           },

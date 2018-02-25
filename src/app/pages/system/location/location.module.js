@@ -15,7 +15,7 @@
           url: '/location',
           templateUrl: 'app/pages/system/location/location.html',
           title: '属地查询',
-          controller: 'locationCtrl',
+          controller: 'LocationCtrl',
           sidebarMeta: {
             order: 0,
           },
